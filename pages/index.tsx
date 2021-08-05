@@ -40,6 +40,9 @@ export const getStaticProps: GetStaticProps = async () => {
 const Blog: React.FC<Props> = (props) => {
   return (
     <Layout>
+      <div>
+        <button><a href="/create">New Post</a></button>
+      </div>
       <div className="page">
         <h1>Public Feed</h1>
         <main>

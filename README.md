@@ -1,3 +1,12 @@
-# Fullstack Authentication Example with Next.js and NextAuth.js
+# Next JS and Prisma!
 
-This is the starter project for the fullstack tutorial with Next.js and Prisma. You can find the final version of this project in the [`final`](https://github.com/prisma/blogr-nextjs-prisma/tree/final) branch of this repo.
+This is a test of merging prisma and next js.
+
+Hopefully we can use this for the **prediction markets** in SPARC! 
+
+To test, you'll need a heroku postgreSQL database, you can follow this [guide](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1).
+To run the prisma file do `npx prisma studio`, but make sure you have  a `.env` file in your local folder containing the URL to your Heroku database. 
+
+If you're confused, follow these setup steps at [here](https://vercel.com/guides/nextjs-prisma-postgres).
+
+Currently I know it's a blog, but it's quite easy to fix that! If you know anything about databases that'd be wonderful, as Prisma studio is confusing me.
