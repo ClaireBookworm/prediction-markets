@@ -3,21 +3,7 @@ import { GetStaticProps } from "next"
 import Layout from "../components/Layout"
 import Post, { PostProps } from "../components/Post"
 
-// finds all published posts in database
-export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.post.findMany({
-    where: { published: true },
-    include: {
-      author: {
-        select: { name: true },
-      },
-    },
-  });
-  return { props: { feed } };
-};
-
-
-const Blog: React.FC<Props> = (props) => {
+const Main: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div>
@@ -51,4 +37,4 @@ const Blog: React.FC<Props> = (props) => {
   )
 }
 
-export default Blog
+export default Main
