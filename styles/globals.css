@@ -1,6 +1,30 @@
-html,
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Poppins:wght@500&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+    --background-accent: #FFFFFF;
+    --background: #EAEDF1;
+    --accent: #8F00FF;
+    --gradient: linear-gradient(90deg, #FF7A00 0%, #8F00FF 100%);
+    --shadow: #00000020;
+    --text-color: #000000;
+    --text-color-secondary: #5B6571;
+    
+}
+  
+[data-theme='dark'] {
+    --background: #333333af;
+    --background-solid: #333333;
+    --accent: #cccccc;
+    --accent-transparent: #cccccc2f;
+    --shadow: #00000080;
+    --text-color-normal: #cccccc;
+    --text-color-light: hsl(210, 15%, 35%);
+    --text-color-richer: hsl(210, 50%, 72%);
+    --text-color-highlight: hsl(25, 70%, 45%);
+}
+
 body {
-  padding: 0;
+  padding: 5vw;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -13,4 +37,128 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.roomTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  max-height: 20vh;
+  min-height: 70px;
+
+  font-family: Inter;
+  font-weight: normal;
+  font-size: 1.5rem;
+  /* identical to box height */
+  letter-spacing: -0.05rem;
+}
+
+.bigSeparator {
+  width: 300px;
+  max-width: 90vw;
+  height: 1vh;
+  background-color: black;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  background: var(--gradient);
+  border-radius: 5px;
+}
+
+.book {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: stretch;
+  margin: -1rem;
+}
+
+.table {
+  align-items: stretch;
+  justify-content: center;
+  margin: 1rem;
+  flex: 2;
+  min-width: 15rem;
+  max-height: 80vh;
+}
+
+.trades.table {
+  flex: 3;
+  min-width: 20rem;
+}
+
+.columnTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 5px 10px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+
+.th, 
+.tr {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+}
+
+.th {
+  position: sticky;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--text-color-secondary);
+}
+
+.tr {
+  font-family: Space Mono;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.tr::after {
+  content: "";
+  border-radius: 5px;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.tr:hover, .tr.editable {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.tr:hover::after, .tr.editable::after {
+    opacity: 1;
+}
+
+.th > *,
+.tr > * {
+  margin: 0px 5px;
+}
+
+.nameColumn {
+  flex: 2;
+}
+
+.numberColumn {
+  flex: 1;
+  text-align: right;
 }
