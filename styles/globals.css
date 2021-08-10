@@ -78,20 +78,15 @@ a {
   align-items: stretch;
   justify-content: center;
   margin: 1rem;
-  flex: 2;
-  min-width: 15rem;
-  max-height: 80vh;
-}
-
-.trades.table {
-  flex: 3;
+  flex: 1;
   min-width: 20rem;
+  max-height: 80vh;
 }
 
 .columnTitle {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  justify-content: space-between;
   padding: 5px 10px;
   font-family: Poppins;
   font-style: normal;
@@ -99,6 +94,31 @@ a {
   font-size: 1.3rem;
 }
 
+.columnActions {
+  display: flex;
+  flex-flow: row nowrap;
+  font-family: Space Mono;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+.columnActions > * {
+  margin-left: 10px;
+  background-color: var(--text-color);
+  color: var(--background);
+  padding: 5px 15px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 5px 8px -2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.columnActions > *:hover {
+  box-shadow: 0 8px 12px -3px rgba(0, 0, 0, 0.5);
+
+}
 
 .th, 
 .tr {
@@ -123,6 +143,7 @@ a {
   font-weight: 400;
   font-size: 0.9rem;
   color: var(--text-color);
+  margin: 5px 0;
 }
 
 .tr::after {
@@ -155,10 +176,33 @@ a {
 }
 
 .nameColumn {
-  flex: 2;
+  flex: 4;
 }
 
 .numberColumn {
-  flex: 1;
+  flex: 2;
   text-align: right;
+}
+
+/*change px to rem to account for phones */
+.rowAction {
+  flex: 3;
+  background-color: var(--text-color);
+  color: var(--background);
+  text-align: center;
+  padding: 5px;
+  margin: -5px;  
+  margin-left: 15px;
+}
+
+.tr:hover .rowAction, .tr.editalbe .rowAction {
+  border-radius: 0 5px 5px 0;
+}
+
+
+.rowActionEmpty {
+  flex: 3;
+  padding: 5px;
+  margin: -5px;  
+  margin-left: 15px;
 }

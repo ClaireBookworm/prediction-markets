@@ -9,6 +9,7 @@ export default function Row(props) {
   // seller: string
   // quantity: number
   // value: number
+  // probably need users username
 
   const [editMode, toggleEditMode] = useState(false);
   var editable = false;
@@ -42,6 +43,13 @@ export default function Row(props) {
       <input className="numberColumn" focused /> :
       <div className="numberColumn">{props.quantity}</div>}
       <div className="numberColumn">{props.value}</div>
+      {props.type!= "Trades" ? 
+      <div className={"rowAction"}>
+        {props.bidder == "bill" || props.seller=="bill" ? 
+        "OUT" :
+        "Trade"}
+      </div> :
+      null}
     </div>
   )
 }

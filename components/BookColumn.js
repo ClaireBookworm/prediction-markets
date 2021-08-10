@@ -8,13 +8,13 @@ export default function Column(props) {
 
   const handlePress = (e) => {
     e.stopPropagation();
-    document.querySelectorAll(".tr").forEach((i)=>{
+    document.querySelectorAll(".table").forEach((i) => {
       i.classList.remove("editable");
       //i.toggleEditMode(false);
     })
     console.log(e)
     let targetRow = e.target
-    if(!targetRow.classList.contains("tr")) {
+    while (!targetRow.classList.contains("table")) {
       targetRow = targetRow.parentElement;
     }
     targetRow.classList.add("editable");
@@ -24,13 +24,28 @@ export default function Column(props) {
   console.log(props.title.toLowerCase());
 
   return (
-    <div className={`${props.title.toLowerCase()} table`} onClick={(e)=>handlePress(e)}>
-      <div className="columnTitle">{props.title}</div>
+    <div id={props.title} className="table" onClick={(e) => handlePress(e)}>
+      <div className="columnTitle">
+        {props.title}
+        {props.title != "Trades" ?
+          (<div className="columnActions">
+            <div className="addContracts">
+              +
+            </div>
+            {/*<div className="tradeButton" onClick={handlePress}>
+              Trade
+  </div>*/}
+          </div>) :
+          null}
+      </div>
       <div className="th">
         {props.title != "Offers" ? (<div className="nameColumn">Bidder</div>) : null}
         {props.title != "Bids" ? (<div className="nameColumn">Seller</div>) : null}
         <div className="numberColumn">Qty.</div>
         <div className="numberColumn">Value</div>
+        {props.title != "Trades" ?
+          <div className="rowActionEmpty"></div> :
+          null}
       </div>
       <div className="rowContainer">
         <Row
@@ -70,7 +85,7 @@ export default function Column(props) {
         />
         <Row
           type={props.title}
-          bidder="john"
+          bidder="bill"
           seller="john"
           quantity={0}
           value={123}
