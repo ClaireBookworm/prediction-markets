@@ -8,7 +8,7 @@ export default function Room({roomData}) {
   return (
     <div>
     <div className="roomTitle">
-      <div>{roomData.question}</div>
+      <div>{roomData.Question}</div>
       <div className="bigSeparator"></div>
     </div>
     <div className="book">
@@ -24,6 +24,7 @@ export default function Room({roomData}) {
 export async function getStaticPaths() {
   // TODO: Return a list of possible value for id
   const rooms = await getAllRoomIds();
+  console.log(rooms)
   return {
     paths: rooms, 
     fallback: false
@@ -32,6 +33,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const roomData = await getRoomData(params.roomID);
+  console.log("RD", await roomData)
   return {
     props: {
       roomData

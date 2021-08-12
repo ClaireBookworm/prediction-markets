@@ -8,7 +8,7 @@ import { firestore } from '../.env/firebaseConfig'
 
 import { getSimplifiedRoomData } from '../functions/fetchData'
 
-export default function Home({ allRoomsData }) {
+export default function Home({ data }) {
   const [rooms, setRooms] = useState([]);
 
   useEffect(()=>{
@@ -32,6 +32,7 @@ export default function Home({ allRoomsData }) {
     });
     console.log("yeeted")
   }, [rooms])
+
   //allRoomsData.forEach(i => console.log(i));
   return (
     <div className={styles.container}>
@@ -55,12 +56,8 @@ export default function Home({ allRoomsData }) {
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
 
-          {rooms.map((i) => (
+          {data.map((i) => (
             <Link
               href={{
                 pathname: '/[roomID]',
@@ -110,4 +107,33 @@ export default function Home({ allRoomsData }) {
       </footer>
     </div>
   )
+}
+
+export async function getStaticProps(context) {
+  const collectionRef = firestore.collection("Games");
+  const snapshot = await collectionRef.get();
+  console.log("docs", await snapshot.docs);
+
+  const data=[];
+  snapshot.forEach((doc) => {
+      console.log("id", doc.id)
+      console.log(doc.get("Question"))
+      // doc.data() is never undefined for query doc snapshots
+      data.push({
+          roomID: doc.id,
+          question: doc.get("Question")
+      })
+  });
+
+  //TODO: use snapshot listener + check cache to prevent 1k reads per reload xd
+
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: { data }, // will be passed to the page component as props
+  }
 }

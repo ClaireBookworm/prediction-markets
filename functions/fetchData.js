@@ -19,32 +19,34 @@ export async function getSimplifiedRoomData() {
 
 }
 
-export function getAllRoomIds() {
-    const rooms = [];
-    firestore.collection("Games")
-        .get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                console.log("id", doc.id)
-                // doc.data() is never undefined for query doc snapshots
-                rooms.push({
-                    roomID: doc.id,
-                })
-            });
+export async function getAllRoomIds() {
+    const collectionRef = firestore.collection("Games");
+    const snapshot = await collectionRef.get();
+    console.log("docs", await snapshot.docs);
+  
+    const rooms=[];
+    snapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        rooms.push({
+            params : { roomID: doc.id }
         })
-        .catch((error) => {
-            console.log("Error getting documents: ", error);
-        });
+    });
 
     console.log("rooms", rooms)
     return rooms;
 }
 
-export function getRoomData(roomID = 0) {
-    //TODO: get data from firebase based on document id
+export async function getRoomData(roomID = 0) {
+    const docRef = firestore.collection("Games").doc(roomID);
+    const snapshot = await docRef.get();
+    console.log(docRef)
+    console.log("docs", await snapshot.data());
+
     const roomData = {
-        roomID: "test_game1",
-        question: "y Hoppity This room is now my property"
-    };
+        id: snapshot.id, 
+        ...await snapshot.data()
+    }
+
+    console.log("RD", roomData)
     return roomData;
 }
