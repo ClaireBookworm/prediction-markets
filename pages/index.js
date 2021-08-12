@@ -1,12 +1,38 @@
+import React, {useEffect, useState} from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
-import { getSimplifiedRoomData } from './api/fetchData'
+import { firestore } from '../.env/firebaseConfig'
+
+import { getSimplifiedRoomData } from '../functions/fetchData'
 
 export default function Home({ allRoomsData }) {
-  allRoomsData.forEach(i => console.log(i));
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(()=>{
+    firestore.collection("Games")
+    .get()
+    .then((querySnapshot) => {
+        const data = [];
+        querySnapshot.forEach((doc) => {
+            console.log("id", doc.id)
+            console.log(doc.get("Question"))
+            // doc.data() is never undefined for query doc snapshots
+            data.push({
+                roomID: doc.id,
+                question: doc.get("Question")
+            })
+        });
+        setRooms(data);
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+    console.log("yeeted")
+  }, [rooms])
+  //allRoomsData.forEach(i => console.log(i));
   return (
     <div className={styles.container}>
       <Head>
@@ -34,7 +60,7 @@ export default function Home({ allRoomsData }) {
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
 
-          {allRoomsData.map((i) => (
+          {rooms.map((i) => (
             <Link
               href={{
                 pathname: '/[roomID]',
@@ -42,7 +68,8 @@ export default function Home({ allRoomsData }) {
                   roomID: i.roomID,
                 },
               }}
-              passHref>
+              passHref
+              key={i.roomID}>
               <a
                 className={styles.card}
               >
@@ -83,14 +110,4 @@ export default function Home({ allRoomsData }) {
       </footer>
     </div>
   )
-}
-
-export async function getStaticProps() {
-  const allRoomsData = getSimplifiedRoomData();
-  console.log("id", allRoomsData);
-  return {
-    props: {
-      allRoomsData
-    }
-  }
 }

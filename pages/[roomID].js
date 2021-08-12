@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Column from '../components/BookColumn'
-import { getAllPostIds, getAllRoomIds, getRoomData } from './api/fetchData.js'
+import { getAllPostIds, getAllRoomIds, getRoomData } from '../functions/fetchData.js'
 
     
 export default function Room({roomData}) {
